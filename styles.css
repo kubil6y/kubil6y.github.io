@@ -1,0 +1,25 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+canvas {
+  background-color: rgba(78, 69, 69, 0.644);
+  color: #7c7219cc;
+}
+
+#score {
+  position: fixed;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: white;
+}
