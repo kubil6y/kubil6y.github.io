@@ -26,3 +26,4 @@ const pawn = new Pawn(pawnInput);
 pawn.drawText();
 
 const reader = new ImageReader();
+reader.draw(canvas);
