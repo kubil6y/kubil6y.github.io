@@ -1,10 +1,10 @@
 import { Canvas } from "./Canvas";
-import { Cell } from "./Cell";
-import { Globals } from "./Globals";
+import { Cell, ICellInput } from "./Cell";
+import { Globals } from "./utils/Globals";
 
 export class Board {
   private _canvas: Canvas;
-  private _cells: Cell[] = [];
+  public cells: Cell[][] = [];
 
   constructor(canvas: Canvas) {
     this._canvas = canvas;
@@ -32,7 +32,36 @@ export class Board {
     return this.length / 8;
   }
 
-  private initCells = (): void => {
-    return;
+  public initCells = (): void => {
+    console.log("alternative init cells"); // TODO
+    for (let i = 0; i < 8; i++) {
+      let arr: Cell[] = [];
+      for (let j = 0; j < 8; j++) {
+        // const arr: Cell[] = [];
+        const x = this.startX + i * this.cellSize;
+        const y = this.startY + j * this.cellSize;
+
+        const cellInput: ICellInput = {
+          name: "",
+          canvas: this._canvas,
+          x,
+          y,
+          size: this.cellSize,
+          color: (i + j) % 2 === 0 ? "white" : "tomato",
+        };
+
+        // this.cells.push(new Cell(cellInput));
+        arr.push(new Cell(cellInput));
+      }
+      this.cells.push(arr);
+    }
+  };
+
+  public draw = (): void => {
+    for (let i = 0; i < this.cells.length; i++) {
+      for (let j = 0; j < this.cells[i].length; j++) {
+        this.cells[i][j].drawRect();
+      }
+    }
   };
 }

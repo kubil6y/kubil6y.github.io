@@ -1,23 +1,13 @@
-import { BaseComponent } from "./BaseComponent";
+import { BaseComponent, IBaseComponentInput } from "./BaseComponent";
 import { Canvas } from "./Canvas";
 
 export type TCellColor = "white" | "#7c7219cc";
 
-export interface ICellInput {
-  name: string;
-  canvas: Canvas;
-  x: number;
-  y: number;
-  size: number;
-  // color: TCellColor;
-  color: TCellColor;
-}
+export interface ICellInput extends IBaseComponentInput {}
 
 export class Cell extends BaseComponent {
-  public name: string;
-  constructor(public input: ICellInput) {
-    super(input.canvas, input.x, input.y, input.size, input.color);
-    this.name = input.name;
+  constructor(public attr: ICellInput) {
+    super(attr);
   }
 
   get center(): { x: number; y: number } {
