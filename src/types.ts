@@ -5,3 +5,5 @@ export type PieceType =
   | "KNIGHT"
   | "ROOK"
   | "PAWN";
+
+export type ColorType = "white" | "black";

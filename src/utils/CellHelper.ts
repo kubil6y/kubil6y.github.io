@@ -11,6 +11,7 @@ export class CellHelper {
   }
 
   public static NameToIndex(name: string): { i: number; j: number } {
+    name = name.toLowerCase();
     if (name.length !== 2) throw new Error("Cell name must be length 2");
     const num = parseInt(name[1]);
     if (num > 8 || num < 1) {
@@ -27,6 +28,7 @@ export class CellHelper {
     cells: Cell[][],
     name: string
   ): { x: number; y: number } {
+    name = name.toLowerCase();
     const { i, j } = this.NameToIndex(name);
     return this.GetCellCenterByIndexes(cells, i, j);
   }
@@ -45,6 +47,7 @@ export class CellHelper {
     board: Board,
     ctx: CanvasRenderingContext2D
   ): void {
+    name = name.toLowerCase();
     const fontSize = board.cellSize * 0.5;
     ctx.fillStyle = "black";
     ctx.font = `${fontSize}px arial`;
