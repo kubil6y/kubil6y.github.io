@@ -1,29 +1,19 @@
 import { ImageReader } from "./ImageReader";
-import { IPieceInput, Pawn } from "./pieces/Pawn";
 import { canvas, board } from "./setup";
+import { CellHelper } from "./utils/CellHelper";
 
 board.initCells();
 board.draw();
 
-const boardCell = board.cells[0][0];
-console.log(boardCell);
-
-const pawnSize = boardCell.size * 0.8;
-const pawnInput: IPieceInput = {
-  name: "pawn1",
-  canvas,
-  x: boardCell.center.x - pawnSize / 2,
-  y: boardCell.center.y - pawnSize / 2,
-
-  // x: boardCell.center.x - pawnSize / 2.8,
-  // y: boardCell.center.y + pawnSize / 2.8,
-
-  size: pawnSize,
-  color: "black",
-};
-
-const pawn = new Pawn(pawnInput);
-pawn.drawText();
-
 const reader = new ImageReader();
 reader.draw(canvas);
+
+const a8 = board.cells[0][0];
+a8.color = "violet";
+
+const { i, j } = CellHelper.NameToIndex("g7");
+const d3 = board.cells[i][j];
+d3.color = "violet";
+
+board.draw();
+CellHelper.DrawCellNameToBoard("g7", board, canvas.ctx);

@@ -1,5 +1,6 @@
 import { Canvas } from "./Canvas";
-import { Cell, ICellInput } from "./Cell";
+import { Cell } from "./Cell";
+import { CellHelper } from "./utils/CellHelper";
 import { Globals } from "./utils/Globals";
 
 export class Board {
@@ -34,24 +35,16 @@ export class Board {
 
   public initCells = (): void => {
     console.log("alternative init cells"); // TODO
+    const letters = "abcdefgh";
     for (let i = 0; i < 8; i++) {
       let arr: Cell[] = [];
       for (let j = 0; j < 8; j++) {
-        // const arr: Cell[] = [];
         const x = this.startX + i * this.cellSize;
         const y = this.startY + j * this.cellSize;
+        const color = (i + j) % 2 === 0 ? "white" : "tomato";
+        const name = CellHelper.IndexToName(i, j);
 
-        const cellInput: ICellInput = {
-          name: "",
-          canvas: this._canvas,
-          x,
-          y,
-          size: this.cellSize,
-          color: (i + j) % 2 === 0 ? "white" : "tomato",
-        };
-
-        // this.cells.push(new Cell(cellInput));
-        arr.push(new Cell(cellInput));
+        arr.push(new Cell(name, this._canvas, x, y, this.cellSize, color));
       }
       this.cells.push(arr);
     }

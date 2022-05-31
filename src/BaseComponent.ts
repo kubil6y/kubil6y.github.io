@@ -1,29 +1,15 @@
 import { Canvas } from "./Canvas";
 import { Whites } from "./utils/UnicodeCharacters";
 
-export interface IBaseComponentInput {
-  name: string;
-  canvas: Canvas;
-  x: number;
-  y: number;
-  size: number;
-  color: string;
-}
-
 export abstract class BaseComponent {
-  public canvas: Canvas;
-  public x: number;
-  public y: number;
-  public size: number;
-  public color: string;
-
-  constructor(public attr: IBaseComponentInput) {
-    this.canvas = this.attr.canvas;
-    this.x = this.attr.x;
-    this.y = this.attr.y;
-    this.size = this.attr.size;
-    this.color = this.attr.color;
-  }
+  constructor(
+    public name: string,
+    public canvas: Canvas,
+    public x: number,
+    public y: number,
+    public size: number,
+    public color: string
+  ) {}
 
   public drawRect = (): void => {
     this.canvas.ctx.fillStyle = this.color;
