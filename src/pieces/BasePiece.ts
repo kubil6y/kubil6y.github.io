@@ -1,6 +1,9 @@
 import { BaseComponent } from "../BaseComponent";
+import { Board } from "../Board";
 import { Canvas } from "../Canvas";
+import { Cell } from "../Cell";
 import { ColorType, PieceType } from "../types";
+import { CellHelper } from "../utils/CellHelper";
 
 export abstract class BasePiece extends BaseComponent {
   public img: HTMLImageElement = document.querySelector("#pieces")!;
@@ -8,7 +11,9 @@ export abstract class BasePiece extends BaseComponent {
   private coordinates = {
     pawn: { x: 0, y: 0 },
   };
+
   constructor(
+    private readonly board: Board,
     public initialPosition: string,
     public currentPosition: string,
     public name: string,
@@ -24,14 +29,18 @@ export abstract class BasePiece extends BaseComponent {
   public draw = () => {
     const imgSize = this.img.naturalWidth / 6;
     const size = imgSize;
+    const { x, y } = CellHelper.GetCellCenterByName(
+      this.board.cells,
+      this.currentPosition
+    );
     this.canvas.ctx.drawImage(
       this.img,
       imgSize,
       imgSize,
       size,
       size,
-      60,
-      60,
+      x - size / 12,
+      y - size / 12,
       50,
       50
     );

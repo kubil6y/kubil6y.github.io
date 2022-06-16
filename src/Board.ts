@@ -33,9 +33,11 @@ export class Board {
     return this.length / 8;
   }
 
+  getCellAtIndex = (i: number, j: number) => {
+    return this.cells[i][j];
+  };
+
   public initCells = (): void => {
-    console.log("alternative init cells"); // TODO
-    const letters = "abcdefgh";
     for (let i = 0; i < 8; i++) {
       let arr: Cell[] = [];
       for (let j = 0; j < 8; j++) {
@@ -51,8 +53,9 @@ export class Board {
   };
 
   public draw = (): void => {
-    for (let i = 0; i < this.cells.length; i++) {
-      for (let j = 0; j < this.cells[i].length; j++) {
+    this.initCells();
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
         this.cells[i][j].drawRect();
       }
     }

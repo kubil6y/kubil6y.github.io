@@ -11,16 +11,18 @@ export class CellHelper {
   }
 
   public static NameToIndex(name: string): { i: number; j: number } {
+    const letters = "abcdefgh";
+
     name = name.toLowerCase();
     if (name.length !== 2) throw new Error("Cell name must be length 2");
+
     const num = parseInt(name[1]);
-    if (num > 8 || num < 1) {
-      throw new Error("Index must be between 1-8");
-    }
-    const letters = "abcdefgh";
-    const i = letters.indexOf(name[0]);
-    if (i === -1) throw new Error("Invalid cell name");
-    const j = 8 - num;
+    if (num > 8 || num < 1) throw new Error("Number must be between 1-8");
+
+    const i = 8 - num;
+    const j = letters.indexOf(name[0]);
+    if (j === -1) throw new Error("valid letters {a,b,c,e,d,f,g,h}");
+
     return { i, j };
   }
 
