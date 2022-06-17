@@ -5,9 +5,21 @@ import { CellHelper } from "./utils/CellHelper";
 const game = new Game(canvas);
 game.init();
 
-const { i, j } = CellHelper.NameToIndex("a2");
+const cell = game._board.getCellAtPosition("b5");
+console.log(cell);
 
-const cell = game._board.getCellAtIndex(i, j);
+console.log(game._board.cells);
+for (let i = 0; i < 8; i++) {
+  for (let j = 0; j < 8; j++) {
+    const piece = game._board.getCellAtIndex(i, j).currentPiece;
+    if (piece) {
+      const cell = game._board.getCellAtPosition(piece.currentPosition);
+      cell.color = "blue";
+    }
+  }
+}
+
+game.draw();
 
 /*
 board.initCells();

@@ -1,5 +1,6 @@
 import { Canvas } from "./Canvas";
 import { Cell } from "./Cell";
+import { Pawn } from "./pieces/Pawn";
 import { CellHelper } from "./utils/CellHelper";
 import { Globals } from "./utils/Globals";
 
@@ -33,7 +34,12 @@ export class Board {
     return this.length / 8;
   }
 
-  getCellAtIndex = (i: number, j: number) => {
+  public getCellAtPosition = (position: string) => {
+    const { i, j } = CellHelper.NameToIndex(position);
+    return this.getCellAtIndex(i, j);
+  };
+
+  public getCellAtIndex = (i: number, j: number) => {
     return this.cells[i][j];
   };
 
@@ -52,11 +58,59 @@ export class Board {
     }
   };
 
-  public draw = (): void => {
+  public setInitialPositions = () => {
+    const { white, black } = CellHelper.GetInitialPositions();
+
+    // White pieces
+    white.pawns.forEach((pos, index) => {
+      const cell = this.getCellAtPosition(pos);
+      const name = `white:${index}`;
+      cell.currentPiece = new Pawn(
+        this,
+        pos,
+        pos,
+        name,
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "white"
+      );
+    });
+
+    // black pieces
+    black.pawns.forEach((pos, index) => {
+      const cell = this.getCellAtPosition(pos);
+      const name = `black:${index}`;
+      cell.currentPiece = new Pawn(
+        this,
+        pos,
+        pos,
+        name,
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "black"
+      );
+    });
+  };
+
+  public init = () => {
     this.initCells();
+    this.setInitialPositions();
+  };
+
+  public draw = (): void => {
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         this.cells[i][j].drawRect();
+
+        const cell = this.getCellAtIndex(i, j);
+        if (cell.currentPiece) {
+          cell.currentPiece.draw();
+          // console.log(cell.center);
+        }
       }
     }
   };
