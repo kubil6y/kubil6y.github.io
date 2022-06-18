@@ -8,12 +8,8 @@ import { CellHelper } from "../utils/CellHelper";
 export abstract class BasePiece extends BaseComponent {
   public img: HTMLImageElement = document.querySelector("#pieces")!;
 
-  private coordinates = {
-    pawn: { x: 0, y: 0 },
-  };
-
   constructor(
-    private readonly board: Board,
+    private _board: Board,
     public initialPosition: string,
     public currentPosition: string,
     public name: string,
@@ -26,31 +22,11 @@ export abstract class BasePiece extends BaseComponent {
     super(name, canvas, x, y, size, color);
   }
 
-  // public draw = () => {
-  //   const imgSize = this.img.naturalWidth / 6;
-  //   const size = imgSize;
-  //   const { x, y } = CellHelper.GetCellCenterByName(
-  //     this.board.cells,
-  //     this.currentPosition
-  //   );
-  //   this.canvas.ctx.drawImage(
-  //     this.img,
-  //     imgSize,
-  //     imgSize,
-  //     size,
-  //     size,
-  //     x - size / 12,
-  //     y - size / 12,
-  //     50,
-  //     50
-  //   );
-  // };
-
   public draw = () => {
     const imgSize = this.img.naturalWidth / 6;
     const size = imgSize;
     const { x, y } = CellHelper.GetCellCenterByName(
-      this.board.cells,
+      this._board.cells,
       this.currentPosition
     );
 
@@ -65,14 +41,5 @@ export abstract class BasePiece extends BaseComponent {
       50,
       50
     );
-  };
-
-  public getCoordinates = (t: PieceType, color: ColorType) => {
-    switch (t) {
-      case "PAWN":
-        return { x: 3, y: 0 };
-      default:
-        throw new Error("invalid type");
-    }
   };
 }

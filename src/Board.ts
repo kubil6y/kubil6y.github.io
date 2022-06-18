@@ -47,8 +47,8 @@ export class Board {
     for (let i = 0; i < 8; i++) {
       let arr: Cell[] = [];
       for (let j = 0; j < 8; j++) {
-        const x = this.startX + i * this.cellSize;
-        const y = this.startY + j * this.cellSize;
+        const x = this.startX + j * this.cellSize;
+        const y = this.startY + i * this.cellSize;
         const color = (i + j) % 2 === 0 ? "white" : "tomato";
         const name = CellHelper.IndexToName(i, j);
 
