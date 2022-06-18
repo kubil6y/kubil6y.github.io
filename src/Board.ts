@@ -1,9 +1,24 @@
+import {
+  WhiteBishop,
+  WhiteKing,
+  WhiteKnight,
+  WhitePawn,
+  WhiteQueen,
+  WhiteRook,
+} from "./pieces/white";
 import { Canvas } from "./Canvas";
 import { Cell } from "./Cell";
-import { Pawn } from "./pieces/Pawn";
+import { BlackPawn } from "./pieces/black/BlackPawn";
 import { CellHelper } from "./utils/CellHelper";
 import { Globals } from "./utils/Globals";
 import { Rnd } from "./utils/Rnd";
+import {
+  BlackQueen,
+  BlackRook,
+  BlackKnight,
+  BlackBishop,
+  BlackKing,
+} from "./pieces/black";
 
 export class Board {
   private _canvas: Canvas;
@@ -63,14 +78,13 @@ export class Board {
     const { white, black } = CellHelper.GetInitialPositions();
 
     // White pieces
-    white.pawns.forEach((pos, index) => {
+    white.pawns.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
-      const name = Rnd.GenerateId();
-      cell.currentPiece = new Pawn(
+      cell.currentPiece = new WhitePawn(
         this,
         pos,
         pos,
-        name,
+        Rnd.GenerateId(),
         this._canvas,
         cell.x,
         cell.y,
@@ -79,15 +93,156 @@ export class Board {
       );
     });
 
-    // black pieces
-    black.pawns.forEach((pos, index) => {
+    const whiteKingCell = this.getCellAtPosition(white.king);
+    whiteKingCell.currentPiece = new WhiteKing(
+      this,
+      white.king,
+      white.king,
+      Rnd.GenerateId(),
+      this._canvas,
+      whiteKingCell.x,
+      whiteKingCell.y,
+      whiteKingCell.size,
+      "white"
+    );
+
+    const whiteQueenCell = this.getCellAtPosition(white.queen);
+    whiteQueenCell.currentPiece = new WhiteQueen(
+      this,
+      white.queen,
+      white.queen,
+      Rnd.GenerateId(),
+      this._canvas,
+      whiteQueenCell.x,
+      whiteQueenCell.y,
+      whiteQueenCell.size,
+      "white"
+    );
+
+    white.rooks.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
-      const name = `black:${index}`;
-      cell.currentPiece = new Pawn(
+      cell.currentPiece = new WhiteRook(
         this,
         pos,
         pos,
-        name,
+        Rnd.GenerateId(),
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "white"
+      );
+    });
+
+    white.bishops.forEach((pos) => {
+      const cell = this.getCellAtPosition(pos);
+      cell.currentPiece = new WhiteBishop(
+        this,
+        pos,
+        pos,
+        Rnd.GenerateId(),
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "white"
+      );
+    });
+
+    white.knights.forEach((pos) => {
+      const cell = this.getCellAtPosition(pos);
+      cell.currentPiece = new WhiteKnight(
+        this,
+        pos,
+        pos,
+        Rnd.GenerateId(),
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "white"
+      );
+    });
+
+    // black pieces -------------------- //
+    black.pawns.forEach((pos) => {
+      const cell = this.getCellAtPosition(pos);
+      cell.currentPiece = new BlackPawn(
+        this,
+        pos,
+        pos,
+        Rnd.GenerateId(),
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "black"
+      );
+    });
+
+    const blackKingCell = this.getCellAtPosition(black.king);
+    blackKingCell.currentPiece = new BlackKing(
+      this,
+      black.king,
+      black.king,
+      Rnd.GenerateId(),
+      this._canvas,
+      blackKingCell.x,
+      blackKingCell.y,
+      blackKingCell.size,
+      "black"
+    );
+
+    const blackQueenCell = this.getCellAtPosition(black.queen);
+    blackQueenCell.currentPiece = new BlackQueen(
+      this,
+      black.queen,
+      black.queen,
+      Rnd.GenerateId(),
+      this._canvas,
+      blackQueenCell.x,
+      blackQueenCell.y,
+      blackQueenCell.size,
+      "black"
+    );
+
+    black.rooks.forEach((pos) => {
+      const cell = this.getCellAtPosition(pos);
+      cell.currentPiece = new BlackRook(
+        this,
+        pos,
+        pos,
+        Rnd.GenerateId(),
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "black"
+      );
+    });
+
+    black.bishops.forEach((pos) => {
+      const cell = this.getCellAtPosition(pos);
+      cell.currentPiece = new BlackBishop(
+        this,
+        pos,
+        pos,
+        Rnd.GenerateId(),
+        this._canvas,
+        cell.x,
+        cell.y,
+        cell.size,
+        "black"
+      );
+    });
+
+    black.knights.forEach((pos) => {
+      const cell = this.getCellAtPosition(pos);
+      cell.currentPiece = new BlackKnight(
+        this,
+        pos,
+        pos,
+        Rnd.GenerateId(),
         this._canvas,
         cell.x,
         cell.y,

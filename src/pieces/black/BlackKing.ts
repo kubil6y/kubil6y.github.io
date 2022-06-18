@@ -1,6 +1,6 @@
 import { BasePiece } from "../BasePiece";
 
-export class BlackPawn extends BasePiece {
+export class BlackKing extends BasePiece {
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;
@@ -8,9 +8,9 @@ export class BlackPawn extends BasePiece {
     imgOffsetY: number;
   } {
     return {
-      imgW: 5,
+      imgW: 0,
       imgH: 1,
-      imgOffsetX: 9,
+      imgOffsetX: 15,
       imgOffsetY: 11,
     };
   }

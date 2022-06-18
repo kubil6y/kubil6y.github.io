@@ -11,7 +11,7 @@ export class WhitePawn extends BasePiece {
       imgW: 5,
       imgH: 0,
       imgOffsetX: 9,
-      imgOffsetY: 12,
+      imgOffsetY: 13,
     };
   }
 }
