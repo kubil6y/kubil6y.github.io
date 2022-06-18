@@ -1,13 +1,13 @@
-import { Canvas } from "../Canvas";
+import { Board } from "../Board";
 
 export class ResizeEvents {
-  public _canvas: Canvas;
-  constructor(canvas: Canvas) {
-    this._canvas = canvas;
+  public board: Board;
+  constructor(board: Board) {
+    this.board = board;
 
     window.addEventListener("resize", () => {
-      this._canvas.c.width = window.innerWidth;
-      this._canvas.c.height = window.innerHeight;
+      this.board.canvas.c.width = window.innerWidth;
+      this.board.canvas.c.height = window.innerHeight;
       console.log("resize fired");
     });
   }

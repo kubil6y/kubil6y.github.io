@@ -3,17 +3,17 @@ import { Canvas } from "./Canvas";
 import { EventRunner } from "./events/EventRunner";
 
 export class Game {
-  public _eventRunner = new EventRunner(this._canvas);
-  public _board = new Board(this._canvas);
+  public board = new Board(this.canvas);
+  public _eventRunner = new EventRunner(this.board);
 
-  constructor(public _canvas: Canvas) {}
+  constructor(public canvas: Canvas) {}
 
   public init = () => {
-    this._board.init();
+    this.board.init();
   };
 
   public draw = () => {
-    this._board.draw();
+    this.board.draw();
   };
 
   public play = () => {};

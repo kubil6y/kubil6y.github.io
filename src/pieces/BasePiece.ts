@@ -8,7 +8,7 @@ export abstract class BasePiece extends BaseComponent {
   public img: HTMLImageElement = document.querySelector("#pieces")!;
 
   constructor(
-    private _board: Board,
+    public board: Board,
     public initialPosition: string,
     public currentPosition: string,
     public name: string,
@@ -30,7 +30,7 @@ export abstract class BasePiece extends BaseComponent {
 
   public draw() {
     const { x, y } = CellHelper.GetCellCenterByName(
-      this._board.cells,
+      this.board.cells,
       this.currentPosition
     );
 

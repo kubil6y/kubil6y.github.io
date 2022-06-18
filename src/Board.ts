@@ -6,12 +6,6 @@ import {
   WhiteQueen,
   WhiteRook,
 } from "./pieces/white";
-import { Canvas } from "./Canvas";
-import { Cell } from "./Cell";
-import { BlackPawn } from "./pieces/black/BlackPawn";
-import { CellHelper } from "./utils/CellHelper";
-import { Globals } from "./utils/Globals";
-import { Rnd } from "./utils/Rnd";
 import {
   BlackQueen,
   BlackRook,
@@ -20,18 +14,50 @@ import {
   BlackKing,
 } from "./pieces/black";
 
+import { Canvas } from "./Canvas";
+import { Cell } from "./Cell";
+import { BlackPawn } from "./pieces/black/BlackPawn";
+import { CellHelper } from "./utils/CellHelper";
+import { Globals } from "./utils/Globals";
+import { Rnd } from "./utils/Rnd";
+
 export class Board {
-  private _canvas: Canvas;
+  public canvas: Canvas;
   public cells: Cell[][] = [];
+  public currentSelectedCell: Cell | null = null;
+  public currentPlayer: "white" | "black" = "white";
 
   constructor(canvas: Canvas) {
-    this._canvas = canvas;
+    this.canvas = canvas;
   }
+
+  public init = () => {
+    this.initCells();
+    this.setInitialPositions();
+  };
+
+  public draw = (): void => {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        // drawing cells
+        this.cells[i][j].drawRect();
+
+        // drawing current position pieces
+        const cell = this.getCellAtIndex(i, j);
+        if (cell.currentPiece) {
+          cell.currentPiece.draw();
+        }
+
+        // drawing currently selected cell
+        this.currentSelectedCell?.drawStroke("indigo", 3);
+      }
+    }
+  };
 
   // length % 8 must be 0
   get length(): number {
     const l =
-      Math.min(this._canvas.c.width, this._canvas.c.height) *
+      Math.min(this.canvas.c.width, this.canvas.c.height) *
       Globals.BOARD_TO_WINDOW_RATIO;
 
     const remaining = l % 8;
@@ -49,6 +75,23 @@ export class Board {
   get cellSize(): number {
     return this.length / 8;
   }
+
+  public getCellByCoordinates = (x: number, y: number) => {
+    // loop over cells and check for whatever
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        const cell = this.getCellAtIndex(i, j);
+        if (
+          x > cell.x &&
+          x < cell.x + this.cellSize &&
+          y > cell.y &&
+          y < cell.y + this.cellSize
+        ) {
+          return cell;
+        }
+      }
+    }
+  };
 
   public getCellAtPosition = (position: string) => {
     const { i, j } = CellHelper.NameToIndex(position);
@@ -68,7 +111,7 @@ export class Board {
         const color = (i + j) % 2 === 0 ? "white" : "tomato";
         const name = CellHelper.IndexToName(i, j);
 
-        arr.push(new Cell(name, this._canvas, x, y, this.cellSize, color));
+        arr.push(new Cell(name, this.canvas, x, y, this.cellSize, color));
       }
       this.cells.push(arr);
     }
@@ -86,7 +129,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -100,7 +143,7 @@ export class Board {
       white.king,
       white.king,
       "king",
-      this._canvas,
+      this.canvas,
       whiteKingCell.x,
       whiteKingCell.y,
       whiteKingCell.size,
@@ -113,7 +156,7 @@ export class Board {
       white.queen,
       white.queen,
       "queen",
-      this._canvas,
+      this.canvas,
       whiteQueenCell.x,
       whiteQueenCell.y,
       whiteQueenCell.size,
@@ -128,7 +171,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -146,7 +189,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -162,7 +205,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -179,7 +222,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -193,7 +236,7 @@ export class Board {
       black.king,
       black.king,
       "king",
-      this._canvas,
+      this.canvas,
       blackKingCell.x,
       blackKingCell.y,
       blackKingCell.size,
@@ -206,7 +249,7 @@ export class Board {
       black.queen,
       black.queen,
       "queen",
-      this._canvas,
+      this.canvas,
       blackQueenCell.x,
       blackQueenCell.y,
       blackQueenCell.size,
@@ -221,7 +264,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -239,7 +282,7 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
@@ -255,31 +298,12 @@ export class Board {
         pos,
         pos,
         name,
-        this._canvas,
+        this.canvas,
         cell.x,
         cell.y,
         cell.size,
         "black"
       );
     });
-  };
-
-  public init = () => {
-    this.initCells();
-    this.setInitialPositions();
-  };
-
-  public draw = (): void => {
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        this.cells[i][j].drawRect();
-
-        const cell = this.getCellAtIndex(i, j);
-        if (cell.currentPiece) {
-          cell.currentPiece.draw();
-          // console.log(cell.center);
-        }
-      }
-    }
   };
 }

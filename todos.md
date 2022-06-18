@@ -1,5 +1,12 @@
-[] naming of pieces should be `pawn:1` like and unique
-[] draw pieces on correct positions
-[] make pieces move on positions
-[] create rules for each pieces
-[] create a game class manage board etc.
+## Must haves
+
+- show current player
+- try to make pieces move
+- implement rules for each piece to play the game
+- game ending conditions
+- restart game functionality
+
+## Bonuses
+
+- show captured pieces (maybe a must have)
+- undo functionality

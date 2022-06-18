@@ -81,4 +81,13 @@ export class CellHelper {
       },
     };
   }
+
+  // TODO
+  // public static IsItInside = (
+  //   x: number,
+  //   y: number,
+  //   cellSize: number
+  // ): boolean => {
+  //   return false;
+  // };
 }
