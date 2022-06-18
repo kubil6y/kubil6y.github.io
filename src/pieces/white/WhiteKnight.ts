@@ -1,6 +1,6 @@
-import { BasePiece } from "../BasePiece";
+import { Knight } from "../Knight";
 
-export class WhiteKnight extends BasePiece {
+export class WhiteKnight extends Knight {
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;

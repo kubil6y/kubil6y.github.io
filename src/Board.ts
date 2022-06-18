@@ -80,11 +80,12 @@ export class Board {
     // White pieces
     white.pawns.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `pawn:${Rnd.GenerateId()}`;
       cell.currentPiece = new WhitePawn(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -98,7 +99,7 @@ export class Board {
       this,
       white.king,
       white.king,
-      Rnd.GenerateId(),
+      "king",
       this._canvas,
       whiteKingCell.x,
       whiteKingCell.y,
@@ -111,7 +112,7 @@ export class Board {
       this,
       white.queen,
       white.queen,
-      Rnd.GenerateId(),
+      "queen",
       this._canvas,
       whiteQueenCell.x,
       whiteQueenCell.y,
@@ -121,11 +122,12 @@ export class Board {
 
     white.rooks.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `rook:${Rnd.GenerateId()}`;
       cell.currentPiece = new WhiteRook(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -134,13 +136,16 @@ export class Board {
       );
     });
 
-    white.bishops.forEach((pos) => {
+    white.bishops.forEach((pos, index) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `bishop:${
+        index === 0 ? "black" : "white"
+      }:${Rnd.GenerateId()}`;
       cell.currentPiece = new WhiteBishop(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -151,11 +156,12 @@ export class Board {
 
     white.knights.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `knight:${Rnd.GenerateId()}`;
       cell.currentPiece = new WhiteKnight(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -167,11 +173,12 @@ export class Board {
     // black pieces -------------------- //
     black.pawns.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `pawn:${Rnd.GenerateId()}`;
       cell.currentPiece = new BlackPawn(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -185,7 +192,7 @@ export class Board {
       this,
       black.king,
       black.king,
-      Rnd.GenerateId(),
+      "king",
       this._canvas,
       blackKingCell.x,
       blackKingCell.y,
@@ -198,7 +205,7 @@ export class Board {
       this,
       black.queen,
       black.queen,
-      Rnd.GenerateId(),
+      "queen",
       this._canvas,
       blackQueenCell.x,
       blackQueenCell.y,
@@ -208,11 +215,12 @@ export class Board {
 
     black.rooks.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `rook:${Rnd.GenerateId()}`;
       cell.currentPiece = new BlackRook(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -221,13 +229,16 @@ export class Board {
       );
     });
 
-    black.bishops.forEach((pos) => {
+    black.bishops.forEach((pos, index) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `bishop:${
+        index === 0 ? "white" : "black"
+      }:${Rnd.GenerateId()}`;
       cell.currentPiece = new BlackBishop(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,
@@ -238,11 +249,12 @@ export class Board {
 
     black.knights.forEach((pos) => {
       const cell = this.getCellAtPosition(pos);
+      const name = `knight:${Rnd.GenerateId()}`;
       cell.currentPiece = new BlackKnight(
         this,
         pos,
         pos,
-        Rnd.GenerateId(),
+        name,
         this._canvas,
         cell.x,
         cell.y,

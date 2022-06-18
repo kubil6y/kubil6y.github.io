@@ -1,9 +1,11 @@
 import { Board } from "./Board";
 import { Canvas } from "./Canvas";
-import { BasePiece } from "./pieces/BasePiece";
+import { EventRunner } from "./events/EventRunner";
 
 export class Game {
+  public _eventRunner = new EventRunner(this._canvas);
   public _board = new Board(this._canvas);
+
   constructor(public _canvas: Canvas) {}
 
   public init = () => {

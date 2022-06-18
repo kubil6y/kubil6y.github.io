@@ -1,7 +1,5 @@
-import { Board } from "./Board";
 import { Canvas } from "./Canvas";
-import { EventRunner } from "./events/EventRunner";
+import { Game } from "./Game";
 
 export const canvas = new Canvas();
-export const board = new Board(canvas);
-EventRunner.run(canvas);
+export const game = new Game(canvas);
