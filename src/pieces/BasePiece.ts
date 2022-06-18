@@ -1,7 +1,6 @@
 import { BaseComponent } from "../BaseComponent";
 import { Board } from "../Board";
 import { Canvas } from "../Canvas";
-import { Cell } from "../Cell";
 import { ColorType, PieceType } from "../types";
 import { CellHelper } from "../utils/CellHelper";
 
@@ -22,24 +21,44 @@ export abstract class BasePiece extends BaseComponent {
     super(name, canvas, x, y, size, color);
   }
 
-  public draw = () => {
-    const imgSize = this.img.naturalWidth / 6;
-    const size = imgSize;
+  public abstract getImageCoordinates(): {
+    imgW: number;
+    imgH: number;
+    imgOffsetX: number;
+    imgOffsetY: number;
+  };
+
+  public draw() {
     const { x, y } = CellHelper.GetCellCenterByName(
       this._board.cells,
       this.currentPosition
     );
 
+    const sWidth = this.img.naturalWidth / 6;
+    const sHeight = this.img.naturalHeight / 2;
+
+    const { imgW, imgH, imgOffsetX, imgOffsetY } = this.getImageCoordinates();
+    const sx = sWidth * imgW;
+    const sy = sHeight * imgH;
+
+    const offsetX = sWidth / imgOffsetX;
+    const offsetY = sHeight / imgOffsetY;
+    const dx = x - offsetX;
+    const dy = y - offsetY;
+
+    const dWidth = 50;
+    const dHeight = 50;
+
     this.canvas.ctx.drawImage(
       this.img,
-      imgSize,
-      imgSize,
-      size,
-      size,
-      x - size / 12,
-      y - size / 12,
-      50,
-      50
+      sx,
+      sy,
+      sWidth,
+      sHeight,
+      dx,
+      dy,
+      dWidth,
+      dHeight
     );
-  };
+  }
 }

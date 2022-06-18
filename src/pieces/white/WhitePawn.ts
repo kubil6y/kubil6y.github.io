@@ -1,16 +1,15 @@
-import { BasePiece } from "./BasePiece";
+import { BasePiece } from "../BasePiece";
 
-export class Pawn extends BasePiece {
+export class WhitePawn extends BasePiece {
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;
     imgOffsetX: number;
     imgOffsetY: number;
   } {
-    const imgH = this.name.split(":")[0] === "white" ? 0 : 1;
     return {
       imgW: 5,
-      imgH,
+      imgH: 0,
       imgOffsetX: 9,
       imgOffsetY: 12,
     };

@@ -3,6 +3,7 @@ import { Cell } from "./Cell";
 import { Pawn } from "./pieces/Pawn";
 import { CellHelper } from "./utils/CellHelper";
 import { Globals } from "./utils/Globals";
+import { Rnd } from "./utils/Rnd";
 
 export class Board {
   private _canvas: Canvas;
@@ -64,7 +65,7 @@ export class Board {
     // White pieces
     white.pawns.forEach((pos, index) => {
       const cell = this.getCellAtPosition(pos);
-      const name = `white:${index}`;
+      const name = Rnd.GenerateId();
       cell.currentPiece = new Pawn(
         this,
         pos,
