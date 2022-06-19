@@ -20,87 +20,20 @@ import { BlackPawn } from "./pieces/black/BlackPawn";
 import { CellHelper } from "./utils/CellHelper";
 import { Globals } from "./utils/Globals";
 import { Rnd } from "./utils/Rnd";
+import { ColorType } from "./types";
+import { BasePiece } from "./pieces/BasePiece";
 
 export class Board {
   public canvas: Canvas;
   public cells: Cell[][] = [];
+  public currentPlayer: ColorType = "white";
   public currentSelectedCell: Cell | null = null;
-  public currentPlayer: "white" | "black" = "white";
+  public nextSelectedCell: Cell | null = null;
+  public moves: any = [];
 
   constructor(canvas: Canvas) {
     this.canvas = canvas;
   }
-
-  public init = () => {
-    this.initCells();
-    this.setInitialPositions();
-  };
-
-  public draw = (): void => {
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        // drawing cells
-        this.cells[i][j].drawRect();
-
-        // drawing current position pieces
-        const cell = this.getCellAtIndex(i, j);
-        if (cell.currentPiece) {
-          cell.currentPiece.draw();
-        }
-
-        // drawing currently selected cell
-        this.currentSelectedCell?.drawStroke("indigo", 3);
-      }
-    }
-  };
-
-  // length % 8 must be 0
-  get length(): number {
-    const l =
-      Math.min(this.canvas.c.width, this.canvas.c.height) *
-      Globals.BOARD_TO_WINDOW_RATIO;
-
-    const remaining = l % 8;
-    return l - remaining;
-  }
-
-  get startX(): number {
-    return (window.innerWidth - this.length) / 2;
-  }
-
-  get startY(): number {
-    return (window.innerHeight - this.length) / 2;
-  }
-
-  get cellSize(): number {
-    return this.length / 8;
-  }
-
-  public getCellByCoordinates = (x: number, y: number) => {
-    // loop over cells and check for whatever
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        const cell = this.getCellAtIndex(i, j);
-        if (
-          x > cell.x &&
-          x < cell.x + this.cellSize &&
-          y > cell.y &&
-          y < cell.y + this.cellSize
-        ) {
-          return cell;
-        }
-      }
-    }
-  };
-
-  public getCellAtPosition = (position: string) => {
-    const { i, j } = CellHelper.NameToIndex(position);
-    return this.getCellAtIndex(i, j);
-  };
-
-  public getCellAtIndex = (i: number, j: number) => {
-    return this.cells[i][j];
-  };
 
   public initCells = (): void => {
     for (let i = 0; i < 8; i++) {
@@ -305,5 +238,108 @@ export class Board {
         "black"
       );
     });
+  };
+
+  public init = () => {
+    this.initCells();
+    this.setInitialPositions();
+  };
+
+  public draw = (): void => {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        // drawing cells
+        this.cells[i][j].drawRect();
+
+        // drawing current position pieces
+        const cell = this.getCellAtIndex(i, j);
+        cell.currentPiece?.draw();
+
+        // drawing currently selected cell
+        this.currentSelectedCell?.drawStroke("indigo", 3);
+      }
+    }
+  };
+
+  // length % 8 must be 0
+  get length(): number {
+    const l =
+      Math.min(this.canvas.c.width, this.canvas.c.height) *
+      Globals.BOARD_TO_WINDOW_RATIO;
+
+    const remaining = l % 8;
+    return l - remaining;
+  }
+
+  get startX(): number {
+    return (window.innerWidth - this.length) / 2;
+  }
+
+  get startY(): number {
+    return (window.innerHeight - this.length) / 2;
+  }
+
+  get cellSize(): number {
+    return this.length / 8;
+  }
+
+  public getCellByCoordinates = (x: number, y: number) => {
+    // loop over cells and check for whatever
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        const cell = this.getCellAtIndex(i, j);
+        if (
+          x > cell.x &&
+          x < cell.x + this.cellSize &&
+          y > cell.y &&
+          y < cell.y + this.cellSize
+        ) {
+          return cell;
+        }
+      }
+    }
+  };
+
+  public getCellAtPosition = (position: string) => {
+    const { i, j } = CellHelper.NameToIndex(position);
+    return this.getCellAtIndex(i, j);
+  };
+
+  public getCellAtIndex = (i: number, j: number) => {
+    return this.cells[i][j];
+  };
+
+  public getPieceAtPosition = (position: string): BasePiece | null => {
+    const cell = this.getCellAtPosition(position);
+    if (!cell.currentPiece) return null;
+    return cell.currentPiece;
+  };
+
+  // public setPieceAtPosition = (position: string, piece: BasePiece): void => {
+  //   const cell = this.getCellAtPosition(position);
+  //   cell.setCurrentPiece(piece);
+  // };
+
+  public listenForMoves = () => {
+    // FIXME fucking disgusting
+    if (
+      this.currentSelectedCell?.currentPiece &&
+      this.nextSelectedCell &&
+      !this.nextSelectedCell.currentPiece
+    ) {
+      this.nextSelectedCell.currentPiece =
+        this.currentSelectedCell.currentPiece;
+
+      this.nextSelectedCell.currentPiece.currentPosition =
+        this.nextSelectedCell.name;
+
+      this.currentSelectedCell.currentPiece = null;
+
+      // cleanup after move
+      this.currentSelectedCell = null;
+      this.nextSelectedCell = null;
+
+      this.currentPlayer = this.currentPlayer === "white" ? "black" : "white";
+    }
   };
 }

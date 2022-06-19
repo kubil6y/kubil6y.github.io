@@ -1,10 +1,12 @@
 import { Board } from "./Board";
 import { Canvas } from "./Canvas";
 import { EventRunner } from "./events/EventRunner";
+import { InformationService } from "./InformationService";
 
 export class Game {
   public board = new Board(this.canvas);
-  public _eventRunner = new EventRunner(this.board);
+  private _eventRunner = new EventRunner(this.board);
+  private _informationService = new InformationService(this);
 
   constructor(public canvas: Canvas) {}
 
@@ -14,9 +16,10 @@ export class Game {
 
   public draw = () => {
     this.board.draw();
+    this._informationService.update();
+    this.board.listenForMoves();
   };
 
-  public play = () => {};
-
-  public generatePieces = () => {};
+  // public play = () => {};
+  // public generatePieces = () => {};
 }

@@ -1,6 +1,7 @@
 ## Must haves
 
-- show current player
+<!-- - show current player / turn based game -->
+
 - try to make pieces move
 - implement rules for each piece to play the game
 - game ending conditions
