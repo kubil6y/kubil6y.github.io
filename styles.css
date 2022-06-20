@@ -1,3 +1,7 @@
+:root {
+  --current-player: white;
+}
+
 *,
 *::before,
 *::after {
@@ -23,7 +27,19 @@ canvas {
 }
 
 #current_player {
+  z-index: 1;
   position: fixed;
-  top: 10px;
+  top: 12px;
   left: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#current_player_color {
+  background-color: var(--current-player);
+  width: 50px;
+  height: 15px;
 }

@@ -1,11 +1,14 @@
 import { Game } from "./Game";
 
 export class InformationService {
-  public currentPlayerText = document.querySelector("#current_player")!;
+  public root = document.querySelector(":root")! as HTMLElement;
 
   constructor(public game: Game) {}
 
   public update = () => {
-    this.currentPlayerText.innerHTML = `Current Player: ${this.game.board.currentPlayer.toUpperCase()}`;
+    this.root.style.setProperty(
+      "--current-player",
+      this.game.board.currentPlayer
+    );
   };
 }
