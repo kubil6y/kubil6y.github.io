@@ -1,5 +1,4 @@
 import { Canvas } from "./Canvas";
-import { Whites } from "./utils/UnicodeCharacters";
 
 export abstract class BaseComponent {
   constructor(
@@ -34,10 +33,10 @@ export abstract class BaseComponent {
     this.canvas.ctx.strokeRect(this.x, this.y, this.size, this.size);
   };
 
-  public drawText = (): void => {
+  public drawText = (text: string): void => {
     this.canvas.ctx.fillStyle = this.color;
     this.canvas.ctx.font = `${this.size}px arial`;
-    this.canvas.ctx.fillText(Whites.KING, this.x, this.y);
+    this.canvas.ctx.fillText(text, this.x, this.y);
     this.canvas.ctx.strokeRect(this.x, this.y, this.size, this.size);
   };
 }

@@ -20,3 +20,9 @@
   2. move to an occupied cell
 
 - create rules for each pieces. learn about rules engine design pattern
+
+queen = 9
+rook = 5
+bishop = 3
+knight = 3
+pawn = 1

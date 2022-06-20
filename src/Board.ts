@@ -33,6 +33,13 @@ export class Board {
   public capturedPieces: BasePiece[] = [];
   public lastMovedPieceCellPosition: Cell | null = null;
 
+  public captured_pieces_by_white = document.querySelector(
+    "#captured_pieces_by_white"
+  )!;
+  public captured_pieces_by_black = document.querySelector(
+    "#captured_pieces_by_black"
+  )!;
+
   constructor(canvas: Canvas) {
     this.canvas = canvas;
   }
@@ -258,12 +265,48 @@ export class Board {
         cell.currentPiece?.draw();
 
         // drawing currently selected cell
-        this.currentSelectedCell?.drawStroke("indigo", 3);
+        this.currentSelectedCell?.drawStroke("yellow", 3);
 
         if (this.lastMovedPieceCellPosition) {
-          this.lastMovedPieceCellPosition.drawStroke("yellow", 3);
+          this.lastMovedPieceCellPosition.drawStroke("indigo", 3);
         }
       }
+    }
+
+    // render captured pieces
+    this.drawCapturedPieces();
+  };
+
+  public drawCapturedPieces = () => {
+    const capturedByWhite = [];
+    const capturedByBlack = [];
+    let capturedByWhiteString: string = "-";
+    let capturedByBlackString: string = "-";
+
+    for (let i = 0; i < this.capturedPieces.length; i++) {
+      if (this.capturedPieces[i].color === "white") {
+        capturedByBlack.push(this.capturedPieces[i]);
+      } else {
+        capturedByWhite.push(this.capturedPieces[i]);
+      }
+    }
+
+    // sort captured arrays
+    capturedByWhite.sort((i, j) => j.pointsValue - i.pointsValue);
+    capturedByBlack.sort((i, j) => j.pointsValue - i.pointsValue);
+
+    if (capturedByWhite.length > 0) {
+      capturedByWhiteString = capturedByWhite
+        .map((item) => item.unicode)
+        .join(" ");
+      this.captured_pieces_by_white.innerHTML = capturedByWhiteString;
+    }
+
+    if (capturedByBlack.length > 0) {
+      capturedByBlackString = capturedByBlack
+        .map((item) => item.unicode)
+        .join(" ");
+      this.captured_pieces_by_black.innerHTML = capturedByBlackString;
     }
   };
 

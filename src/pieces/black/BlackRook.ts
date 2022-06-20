@@ -1,6 +1,9 @@
+import { UnicodeCharacters } from "../../utils/UnicodeCharacters";
 import { Rook } from "../Rook";
 
 export class BlackRook extends Rook {
+  public unicode: string = UnicodeCharacters.Black.Rook;
+
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;

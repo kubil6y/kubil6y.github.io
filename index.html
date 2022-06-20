@@ -8,10 +8,23 @@
     <title>Chess Game</title>
   </head>
   <body>
-    <div id="current_player">
+    <div id="current_player" class="flex-center">
       <p>Current Player:</p>
       <div id="current_player_color"></div>
     </div>
+
+    <div id="captured_pieces">
+      <div class="flex-center">
+        <p>White Captures:</p>
+        <div id="captured_pieces_by_white" class="text-lg">-</div>
+      </div>
+
+      <div class="flex-center">
+        <p>Black Captures:</p>
+        <div id="captured_pieces_by_black" class="text-lg">-</div>
+      </div>
+    </div>
+
     <canvas></canvas>
     <img id="pieces" src="/img/pieces.png" />
     <script type="module" src="/dist/app-bundle.js"></script>

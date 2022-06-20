@@ -1,17 +1,19 @@
-export const Whites = {
-  KING: "♔",
-  QUEEN: "♕",
-  ROOK: "♖",
-  BISHOP: "♗",
-  KNIGHT: "♘",
-  PAWN: "♙",
-};
+export const UnicodeCharacters = {
+  White: {
+    King: "♔",
+    Queen: "♕",
+    Rook: "♖",
+    Bishop: "♗",
+    Knight: "♘",
+    Pawn: "♙",
+  },
 
-export const Blacks = {
-  KING: "♚",
-  QUEEN: "♛",
-  ROOK: "♜",
-  BISHOP: "♝",
-  KNIGHT: "♞",
-  PAWN: "♟",
+  Black: {
+    King: "♚",
+    Queen: "♛",
+    Rook: "♜",
+    Bishop: "♝",
+    Knight: "♞",
+    Pawn: "♟",
+  },
 };

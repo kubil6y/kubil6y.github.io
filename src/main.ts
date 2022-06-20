@@ -1,6 +1,7 @@
 import { game } from "./setup";
 
 game.init();
+game.draw();
 
 function main() {
   game.canvas.ctx.clearRect(0, 0, game.canvas.c.width, game.canvas.c.height);
@@ -8,7 +9,3 @@ function main() {
   requestAnimationFrame(main);
 }
 main();
-
-// setInterval(() => {
-//   console.log(game.board.capturedPieces);
-// }, 2500);

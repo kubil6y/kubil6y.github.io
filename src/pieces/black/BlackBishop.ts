@@ -1,6 +1,9 @@
+import { UnicodeCharacters } from "../../utils/UnicodeCharacters";
 import { Bishop } from "../Bishop";
 
 export class BlackBishop extends Bishop {
+  public unicode: string = UnicodeCharacters.Black.Bishop;
+
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;

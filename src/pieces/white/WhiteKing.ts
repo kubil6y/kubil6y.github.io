@@ -1,6 +1,9 @@
+import { UnicodeCharacters } from "../../utils/UnicodeCharacters";
 import { King } from "../King";
 
 export class WhiteKing extends King {
+  public unicode: string = UnicodeCharacters.White.King;
+
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;

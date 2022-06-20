@@ -1,7 +1,7 @@
 import { BaseComponent } from "../BaseComponent";
 import { Board } from "../Board";
 import { Canvas } from "../Canvas";
-import { ColorType, PieceType } from "../types";
+import { ColorType } from "../types";
 import { CellHelper } from "../utils/CellHelper";
 
 export abstract class BasePiece extends BaseComponent {
@@ -20,6 +20,9 @@ export abstract class BasePiece extends BaseComponent {
   ) {
     super(name, canvas, x, y, size, color);
   }
+
+  public abstract unicode: string;
+  public abstract pointsValue: number;
 
   public abstract getImageCoordinates(): {
     imgW: number;
@@ -61,4 +64,11 @@ export abstract class BasePiece extends BaseComponent {
       dHeight
     );
   }
+
+  public drawUnicode = (): void => {
+    this.canvas.ctx.fillStyle = this.color;
+    this.canvas.ctx.font = `${this.size}px arial`;
+    this.canvas.ctx.fillText(this.unicode, this.x, this.y);
+    this.canvas.ctx.strokeRect(this.x, this.y, this.size, this.size);
+  };
 }

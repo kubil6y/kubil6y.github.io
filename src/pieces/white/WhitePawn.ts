@@ -1,6 +1,9 @@
+import { UnicodeCharacters } from "../../utils/UnicodeCharacters";
 import { Pawn } from "../Pawn";
 
 export class WhitePawn extends Pawn {
+  public unicode: string = UnicodeCharacters.White.Pawn;
+
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;

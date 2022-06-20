@@ -22,6 +22,16 @@ canvas {
   background-color: rgba(78, 69, 69, 0.644);
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-lg {
+  font-size: 2rem;
+}
+
 #pieces {
   display: none;
 }
@@ -31,15 +41,29 @@ canvas {
   position: fixed;
   top: 12px;
   left: 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
 }
 
 #current_player_color {
   background-color: var(--current-player);
-  width: 50px;
-  height: 15px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+#captured_pieces {
+  z-index: 1;
+  position: fixed;
+  top: 35px;
+  left: 10px;
+  gap: 3px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#captured_pieces p {
+  margin-right: 10px;
 }
