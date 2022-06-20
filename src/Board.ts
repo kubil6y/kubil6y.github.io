@@ -30,6 +30,8 @@ export class Board {
   public currentSelectedCell: Cell | null = null;
   public nextSelectedCell: Cell | null = null;
   public moves: any = [];
+  public capturedPieces: BasePiece[] = [];
+  public lastMovedPieceCellPosition: Cell | null = null;
 
   constructor(canvas: Canvas) {
     this.canvas = canvas;
@@ -257,6 +259,10 @@ export class Board {
 
         // drawing currently selected cell
         this.currentSelectedCell?.drawStroke("indigo", 3);
+
+        if (this.lastMovedPieceCellPosition) {
+          this.lastMovedPieceCellPosition.drawStroke("yellow", 3);
+        }
       }
     }
   };
@@ -321,18 +327,24 @@ export class Board {
   // };
 
   public listenForMoves = () => {
-    // FIXME fucking disgusting
-    if (
-      this.currentSelectedCell?.currentPiece &&
-      this.nextSelectedCell &&
-      !this.nextSelectedCell.currentPiece
-    ) {
+    if (this.currentSelectedCell?.currentPiece && this.nextSelectedCell) {
+      // TODO can capture check (learn about rules engine)
+      // capturing piece if exists
+      if (this.nextSelectedCell.currentPiece) {
+        this.capturedPieces.push(this.nextSelectedCell.currentPiece);
+      }
+
+      // setting next cell's new piece
       this.nextSelectedCell.currentPiece =
         this.currentSelectedCell.currentPiece;
 
+      // setting next cell's piece's position
       this.nextSelectedCell.currentPiece.currentPosition =
         this.nextSelectedCell.name;
 
+      // setting lastMovedPieceCellPosition
+      this.lastMovedPieceCellPosition = this.nextSelectedCell;
+      // removing current cell's piece
       this.currentSelectedCell.currentPiece = null;
 
       // cleanup after move

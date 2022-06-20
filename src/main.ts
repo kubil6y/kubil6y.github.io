@@ -9,5 +9,6 @@ function main() {
 }
 main();
 
-const root = document.querySelector(":root")! as HTMLElement;
-root.style.setProperty("--current-player", "blue");
+// setInterval(() => {
+//   console.log(game.board.capturedPieces);
+// }, 2500);
