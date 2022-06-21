@@ -28,6 +28,10 @@ canvas {
   align-items: center;
 }
 
+.text-sm {
+  font-size: 1.1rem;
+}
+
 .text-lg {
   font-size: 2rem;
 }

@@ -12,17 +12,13 @@
 - show captured pieces (maybe a must have)
 - undo functionality
 
+## for later
+
+- should pieces keep positions or current cells? (would require rewrite)
+
 ## todos today
 
-- create a make a move function (swap). it has two options
-
-  1. move to an empty cell
-  2. move to an occupied cell
+- get diagonal pieces from a position
+- get horizontal/vertical pieces from a position
 
 - create rules for each pieces. learn about rules engine design pattern
-
-queen = 9
-rook = 5
-bishop = 3
-knight = 3
-pawn = 1

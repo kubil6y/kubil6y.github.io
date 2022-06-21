@@ -23,6 +23,20 @@ export class Cell extends BaseComponent {
     return { x, y };
   }
 
+  public drawCircle = (
+    ctx: CanvasRenderingContext2D,
+    radius: number,
+    color: string
+  ) => {
+    ctx.beginPath();
+    const { x, y } = this.center;
+    console.log(x, y);
+    ctx.fillStyle = color;
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+  };
+
   public setCurrentPiece(piece: BasePiece) {
     this.currentPiece = piece;
   }

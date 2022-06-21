@@ -1,8 +1,13 @@
+import { Cell } from "../../Cell";
 import { UnicodeCharacters } from "../../utils/UnicodeCharacters";
 import { Queen } from "../Queen";
 
 export class BlackQueen extends Queen {
   public unicode: string = UnicodeCharacters.Black.Queen;
+
+  public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
+    return true;
+  }
 
   public getImageCoordinates(): {
     imgW: number;

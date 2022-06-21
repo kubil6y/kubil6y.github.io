@@ -81,4 +81,60 @@ export class CellHelper {
       },
     };
   }
+
+  public static Get90DegreeCellsIfEmptyFromIndex = (
+    cells: Cell[][],
+    i: number,
+    j: number
+  ) => {
+    const horizontalCells: Cell[] = [];
+    const verticalCells: Cell[] = [];
+
+    // vertical Cells
+    let x = i - 1;
+    while (x >= 0) {
+      if (cells[x][j].currentPiece) break;
+      verticalCells.push(cells[x][j]);
+      x--;
+    }
+
+    let y = j + 1;
+    while (y <= 7) {
+      if (cells[y][j].currentPiece) break;
+      verticalCells.push(cells[y][j]);
+      y++;
+    }
+
+    // horizontal Cells
+    let k = i - 1;
+    while (k >= 0) {
+      if (cells[i][k]?.currentPiece) break;
+      horizontalCells.push(cells[i][k]);
+      k--;
+    }
+
+    let l = j + 1;
+    while (l <= 7) {
+      if (cells[i][l].currentPiece) break;
+      horizontalCells.push(cells[i][l]);
+      l++;
+    }
+
+    return {
+      verticalCells,
+      horizontalCells,
+    };
+  };
+
+  // TODO get 45 degree function
+  public static Get45DegreeCellsIfEmptyFromIndex = (
+    cells: Cell[][],
+    i: number,
+    j: number
+  ) => {
+    // positive negative degrees... name them like that
+  };
+
+  // TODO get knight movement cells
+  public static GetLMovementCellsFromIndex = () => {};
 }

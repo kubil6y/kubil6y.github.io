@@ -14,7 +14,6 @@ export class ClickEvents {
     });
   }
 
-  // FIXME shit function
   public handleSelectingCells = (cell: Cell) => {
     if (
       cell.currentPiece &&
@@ -31,7 +30,5 @@ export class ClickEvents {
       // Selecting nextSelectedCell
       this.board.nextSelectedCell = cell;
     }
-
-    // TODO is move valid?
   };
 }

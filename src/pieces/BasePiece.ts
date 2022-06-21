@@ -1,11 +1,13 @@
 import { BaseComponent } from "../BaseComponent";
 import { Board } from "../Board";
 import { Canvas } from "../Canvas";
+import { Cell } from "../Cell";
 import { ColorType } from "../types";
 import { CellHelper } from "../utils/CellHelper";
 
 export abstract class BasePiece extends BaseComponent {
   public img: HTMLImageElement = document.querySelector("#pieces")!;
+  public hasMoved: boolean = false;
 
   constructor(
     public board: Board,
@@ -23,6 +25,8 @@ export abstract class BasePiece extends BaseComponent {
 
   public abstract unicode: string;
   public abstract pointsValue: number;
+
+  public abstract isValidMove(cells: Cell[][], nextCell: Cell): boolean;
 
   public abstract getImageCoordinates(): {
     imgW: number;

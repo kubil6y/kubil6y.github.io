@@ -13,7 +13,6 @@ import {
   BlackBishop,
   BlackKing,
 } from "./pieces/black";
-
 import { Canvas } from "./Canvas";
 import { Cell } from "./Cell";
 import { BlackPawn } from "./pieces/black/BlackPawn";
@@ -32,6 +31,7 @@ export class Board {
   public moves: any = [];
   public capturedPieces: BasePiece[] = [];
   public lastMovedPieceCellPosition: Cell | null = null;
+  public possibleMoves: Cell[] = [];
 
   public captured_pieces_by_white = document.querySelector(
     "#captured_pieces_by_white"
@@ -270,6 +270,12 @@ export class Board {
         if (this.lastMovedPieceCellPosition) {
           this.lastMovedPieceCellPosition.drawStroke("indigo", 3);
         }
+
+        if (this.currentSelectedCell && this.possibleMoves.length > 0) {
+          this.possibleMoves.forEach((item) =>
+            item.drawCircle(this.canvas.ctx, 9, "#bcc536a9")
+          );
+        }
       }
     }
 
@@ -295,17 +301,26 @@ export class Board {
     capturedByWhite.sort((i, j) => j.pointsValue - i.pointsValue);
     capturedByBlack.sort((i, j) => j.pointsValue - i.pointsValue);
 
+    // total points
+    const pointsByWhite = capturedByWhite.reduce((sum, curr) => {
+      return sum + curr.pointsValue;
+    }, 0);
+
+    const pointsByBlack = capturedByBlack.reduce((sum, curr) => {
+      return sum + curr.pointsValue;
+    }, 0);
+
     if (capturedByWhite.length > 0) {
-      capturedByWhiteString = capturedByWhite
-        .map((item) => item.unicode)
-        .join(" ");
+      const span = `<span class="text-sm"> [${pointsByWhite}]</span>`;
+      capturedByWhiteString =
+        capturedByWhite.map((item) => item.unicode).join(" ") + span;
       this.captured_pieces_by_white.innerHTML = capturedByWhiteString;
     }
 
     if (capturedByBlack.length > 0) {
-      capturedByBlackString = capturedByBlack
-        .map((item) => item.unicode)
-        .join(" ");
+      const span = `<span class="text-sm"> [${pointsByBlack}]</span>`;
+      capturedByBlackString =
+        capturedByBlack.map((item) => item.unicode).join(" ") + span;
       this.captured_pieces_by_black.innerHTML = capturedByBlackString;
     }
   };
@@ -371,10 +386,21 @@ export class Board {
 
   public listenForMoves = () => {
     if (this.currentSelectedCell?.currentPiece && this.nextSelectedCell) {
-      // TODO can capture check (learn about rules engine)
-      // capturing piece if exists
-      if (this.nextSelectedCell.currentPiece) {
-        this.capturedPieces.push(this.nextSelectedCell.currentPiece);
+      // is the move valid?
+      if (
+        this.currentSelectedCell.currentPiece.isValidMove(
+          this.cells,
+          this.nextSelectedCell
+        )
+      ) {
+        // TODO log valid positions
+
+        // capturing piece if exists
+        if (this.nextSelectedCell.currentPiece) {
+          this.capturedPieces.push(this.nextSelectedCell.currentPiece);
+        }
+
+        // reset pieces
       }
 
       // setting next cell's new piece
