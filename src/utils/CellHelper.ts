@@ -87,47 +87,6 @@ export class CellHelper {
     };
   }
 
-  // public static Get90DegreeCellsIfEmptyFromIndex = (
-  //   cells: Cell[][],
-  //   i: number,
-  //   j: number
-  // ): Cell[] => {
-  //   const result: Cell[] = [];
-
-  //   // going right
-  //   let x = i + 1;
-  //   while (x <= 7) {
-  //     if (cells[x][j].currentPiece) break;
-  //     result.push(cells[x][j]);
-  //     x++;
-  //   }
-
-  //   // going left
-  //   x = i - 1;
-  //   while (x >= 0) {
-  //     if (cells[x][j].currentPiece) break;
-  //     result.push(cells[x][j]);
-  //     x--;
-  //   }
-
-  //   // going top
-  //   let y = j - 1;
-  //   while (y >= 0) {
-  //     if (cells[i][y].currentPiece) break;
-  //     result.push(cells[i][y]);
-  //     y--;
-  //   }
-
-  //   y = j + 1;
-  //   while (y <= 7) {
-  //     if (cells[i][y].currentPiece) break;
-  //     result.push(cells[i][y]);
-  //     y++;
-  //   }
-
-  //   return result;
-  // };
-
   public static Get90DegreeCellsIfEmptyFromIndex = (
     fromColorType: ColorType,
     cells: Cell[][],
@@ -193,56 +152,6 @@ export class CellHelper {
 
     return result;
   };
-
-  // public static Get45DegreeCellsIfEmptyFromIndex = (
-  //   cells: Cell[][],
-  //   i: number,
-  //   j: number
-  // ): Cell[] => {
-  //   const result: Cell[] = [];
-
-  //   // going top-right
-  //   let x = i - 1;
-  //   let y = j + 1;
-  //   while (x >= 0 && y <= 7) {
-  //     if (cells[x][y].currentPiece) break;
-  //     result.push(cells[x][y]);
-  //     x--;
-  //     y++;
-  //   }
-
-  //   // going bottom-left
-  //   x = i + 1;
-  //   y = j - 1;
-  //   while (x <= 7 && y >= 0) {
-  //     if (cells[x][y].currentPiece) break;
-  //     result.push(cells[x][y]);
-  //     x++;
-  //     y--;
-  //   }
-
-  //   // going top-left
-  //   x = i - 1;
-  //   y = j - 1;
-  //   while (x >= 0 && y >= 0) {
-  //     if (cells[x][y].currentPiece) break;
-  //     result.push(cells[x][y]);
-  //     x--;
-  //     y--;
-  //   }
-
-  //   // going bottom-right
-  //   x = i + 1;
-  //   y = j + 1;
-  //   while (x <= 7 && y <= 7) {
-  //     if (cells[x][y].currentPiece) break;
-  //     result.push(cells[x][y]);
-  //     x++;
-  //     y++;
-  //   }
-
-  //   return result;
-  // };
 
   public static Get45DegreeCellsIfEmptyFromIndex = (
     fromColorType: ColorType,

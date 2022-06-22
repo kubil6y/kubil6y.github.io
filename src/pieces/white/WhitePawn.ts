@@ -38,9 +38,9 @@ export class WhitePawn extends Pawn {
     }
 
     if (
-      CellHelper.IsCellValid(i - 1, j - 1) &&
+      CellHelper.IsCellValid(i - 1, j + 1) &&
       cells[i - 1][j + 1].currentPiece !== null &&
-      cells[i - 1][j - 1].currentPiece?.color !== this.color
+      cells[i - 1][j + 1].currentPiece?.color !== this.color
     ) {
       result.push(cells[i - 1][j + 1]);
     }
