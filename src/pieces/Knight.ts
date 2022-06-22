@@ -1,3 +1,4 @@
+import { Cell } from "../Cell";
 import { BasePiece } from "./BasePiece";
 
 export abstract class Knight extends BasePiece {
@@ -7,5 +8,13 @@ export abstract class Knight extends BasePiece {
     imgH: number;
     imgOffsetX: number;
     imgOffsetY: number;
+  };
+
+  public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
+    return true;
+  }
+
+  public getValidMoves = (cells: Cell[][]): Cell[] => {
+    return [];
   };
 }

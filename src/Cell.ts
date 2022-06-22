@@ -30,7 +30,6 @@ export class Cell extends BaseComponent {
   ) => {
     ctx.beginPath();
     const { x, y } = this.center;
-    console.log(x, y);
     ctx.fillStyle = color;
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.fill();

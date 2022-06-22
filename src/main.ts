@@ -17,12 +17,5 @@ devButton.addEventListener("click", () => {
   game.printPiecesOnBoard();
 
   const target = CellHelper.IndexToName(4, 4);
-  console.log(target);
-  const result = CellHelper.Get45DegreeCellsIfEmptyFromIndex(
-    game.board.cells,
-    4,
-    4
-  );
-
-  console.log(result);
+  console.log({ target, possibleMoves: game.board.possibleMoves });
 });

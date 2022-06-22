@@ -22,13 +22,17 @@ export class ClickEvents {
     ) {
       // Selecting currentSelectedCell
       this.board.currentSelectedCell = cell;
-    } else if (
-      // !cell.currentPiece &&
-      this.board.currentSelectedCell &&
-      !this.board.nextSelectedCell
-    ) {
+
+      // TODO deneme: trying to set possible moves on the board
+      this.board.possibleMoves =
+        this.board.currentSelectedCell.currentPiece?.getValidMoves(
+          this.board.cells
+        ) || [];
+    } else if (this.board.currentSelectedCell && !this.board.nextSelectedCell) {
       // Selecting nextSelectedCell
       this.board.nextSelectedCell = cell;
+      // TODO after selecting nextSelectedCell remove possible moves;
+      this.board.possibleMoves = [];
     }
   };
 }

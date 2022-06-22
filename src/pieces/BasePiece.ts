@@ -8,6 +8,8 @@ import { CellHelper } from "../utils/CellHelper";
 export abstract class BasePiece extends BaseComponent {
   public img: HTMLImageElement = document.querySelector("#pieces")!;
   public hasMoved: boolean = false;
+  // TODO pinned pieces should be included in isValidMove
+  public isPinned = false;
 
   constructor(
     public board: Board,
@@ -27,6 +29,7 @@ export abstract class BasePiece extends BaseComponent {
   public abstract pointsValue: number;
 
   public abstract isValidMove(cells: Cell[][], nextCell: Cell): boolean;
+  public abstract getValidMoves(cells: Cell[][]): Cell[];
 
   public abstract getImageCoordinates(): {
     imgW: number;

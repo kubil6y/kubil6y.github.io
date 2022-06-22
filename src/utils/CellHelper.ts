@@ -12,6 +12,10 @@ export class CellHelper {
     return char + num;
   }
 
+  public static IsCellValid = (i: number, j: number): boolean => {
+    return i >= 0 && i <= 7 && j >= 0 && j <= 7;
+  };
+
   public static NameToIndex(name: string): { i: number; j: number } {
     const letters = "abcdefgh";
 
@@ -86,7 +90,7 @@ export class CellHelper {
     cells: Cell[][],
     i: number,
     j: number
-  ) => {
+  ): Cell[] => {
     const horizontalCells: Cell[] = [];
     const verticalCells: Cell[] = [];
 
@@ -122,20 +126,14 @@ export class CellHelper {
       l++;
     }
 
-    // TODO revert this
-    // return [...horizontalCells, ...verticalCells];
-    return {
-      horizontalCells,
-      verticalCells,
-    };
+    return [...horizontalCells, ...verticalCells];
   };
 
-  // TODO get 45 degree function
   public static Get45DegreeCellsIfEmptyFromIndex = (
     cells: Cell[][],
     i: number,
     j: number
-  ) => {
+  ): Cell[] => {
     // negative degree: \
     // const negatives: Cell[] = [];
 
@@ -178,13 +176,54 @@ export class CellHelper {
     while (x <= 7 && y <= 7) {
       if (cells[x][y].currentPiece) break;
       result.push(cells[x][y]);
-      x--;
-      y--;
+      x++;
+      y++;
     }
 
     return result;
   };
 
   // TODO get knight movement cells
-  public static GetLMovementCellsFromIndex = () => {};
+  public static GetLMovementCellsFromIndex = (
+    cells: Cell[][],
+    i: number,
+    j: number
+  ): Cell[] => {
+    const result: Cell[] = [];
+    // 8 possible moves a knight can make if valid
+
+    // top-right
+    if (this.IsCellValid(i - 2, j + 1)) {
+      result.push(cells[i - 2][j + 1]);
+    }
+    if (this.IsCellValid(i - 1, j + 2)) {
+      result.push(cells[i - 1][j + 2]);
+    }
+
+    // bottom-right
+    if (this.IsCellValid(i + 1, j + 2)) {
+      result.push(cells[i + 1][j + 2]);
+    }
+    if (this.IsCellValid(i + 2, j + 1)) {
+      result.push(cells[i + 2][j + 1]);
+    }
+
+    // bottom-left
+    if (this.IsCellValid(i + 1, j - 2)) {
+      result.push(cells[i + 1][j - 2]);
+    }
+    if (this.IsCellValid(i + 2, j - 1)) {
+      result.push(cells[i + 2][j - 1]);
+    }
+
+    // top-left
+    if (this.IsCellValid(i - 1, j - 2)) {
+      result.push(cells[i - 1][j - 2]);
+    }
+    if (this.IsCellValid(i - 2, j - 1)) {
+      result.push(cells[i - 2][j - 1]);
+    }
+
+    return result;
+  };
 }

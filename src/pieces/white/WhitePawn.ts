@@ -7,16 +7,20 @@ export class WhitePawn extends Pawn {
   public unicode: string = UnicodeCharacters.White.Pawn;
 
   public isValidMove = (cells: Cell[][], nextCell: Cell): boolean => {
-    console.log(this.currentPosition); // TODO currposition log
-    const { i: currI, j: currJ } = CellHelper.NameToIndex(this.currentPosition);
-    const currentCell = CellHelper.GetCellCenterByIndexes(cells, currI, currJ);
+    if (this.isPinned) return false;
 
-    const { i: nextI, j: nextJ } = CellHelper.NameToIndex(nextCell.name);
-    return true;
+    const { i, j } = CellHelper.NameToIndex(this.currentPosition);
+    const validCells = this.getValidMoves(cells);
+    var result = validCells.includes(nextCell);
+    console.log({ validCells, result });
+
+    return result;
   };
 
   public getValidMoves = (cells: Cell[][]): Cell[] => {
-    return [];
+    const { i, j } = CellHelper.NameToIndex(this.currentPosition);
+    const result = CellHelper.Get90DegreeCellsIfEmptyFromIndex(cells, i, j);
+    return result;
   };
 
   public getImageCoordinates(): {

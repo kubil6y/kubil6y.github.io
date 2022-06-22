@@ -9,6 +9,10 @@ export class WhiteKing extends King {
     return true;
   }
 
+  public getValidMoves = (cells: Cell[][]): Cell[] => {
+    return [];
+  };
+
   public getImageCoordinates(): {
     imgW: number;
     imgH: number;

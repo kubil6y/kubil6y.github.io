@@ -265,15 +265,15 @@ export class Board {
         cell.currentPiece?.draw();
 
         // drawing currently selected cell
-        this.currentSelectedCell?.drawStroke("yellow", 3);
+        this.currentSelectedCell?.drawStroke("#bcc536a9", 3);
 
         if (this.lastMovedPieceCellPosition) {
-          this.lastMovedPieceCellPosition.drawStroke("indigo", 3);
+          this.lastMovedPieceCellPosition.drawStroke("darkgreen", 3);
         }
 
         if (this.currentSelectedCell && this.possibleMoves.length > 0) {
           this.possibleMoves.forEach((item) =>
-            item.drawCircle(this.canvas.ctx, 9, "#bcc536a9")
+            item.drawCircle(this.canvas.ctx, 6, "#bcc536a9")
           );
         }
       }
@@ -379,11 +379,6 @@ export class Board {
     return cell.currentPiece;
   };
 
-  // public setPieceAtPosition = (position: string, piece: BasePiece): void => {
-  //   const cell = this.getCellAtPosition(position);
-  //   cell.setCurrentPiece(piece);
-  // };
-
   public listenForMoves = () => {
     if (this.currentSelectedCell?.currentPiece && this.nextSelectedCell) {
       // is the move valid?
@@ -393,8 +388,6 @@ export class Board {
           this.nextSelectedCell
         )
       ) {
-        // TODO log valid positions
-
         // capturing piece if exists
         if (this.nextSelectedCell.currentPiece) {
           this.capturedPieces.push(this.nextSelectedCell.currentPiece);
