@@ -10,16 +10,4 @@ export abstract class Bishop extends BasePiece {
     imgOffsetX: number;
     imgOffsetY: number;
   };
-
-  public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
-    if (this.isPinned) return false;
-    const validMoves = this.getValidMoves(cells);
-    return validMoves.includes(nextCell);
-  }
-
-  public getValidMoves = (cells: Cell[][]): Cell[] => {
-    const { i, j } = CellHelper.NameToIndex(this.currentPosition);
-    const moves = CellHelper.Get45DegreeCellsIfEmptyFromIndex(cells, i, j);
-    return moves;
-  };
 }
