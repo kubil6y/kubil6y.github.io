@@ -1,4 +1,5 @@
 import { game } from "./setup";
+import { CellHelper } from "./utils/CellHelper";
 // import { CellHelper } from "./utils/CellHelper";
 
 game.init();
@@ -10,3 +11,18 @@ function main() {
   requestAnimationFrame(main);
 }
 main();
+
+export const devButton = document.querySelector("#dev-button")!;
+devButton.addEventListener("click", () => {
+  game.printPiecesOnBoard();
+
+  const target = CellHelper.IndexToName(4, 4);
+  console.log(target);
+  const result = CellHelper.Get45DegreeCellsIfEmptyFromIndex(
+    game.board.cells,
+    4,
+    4
+  );
+
+  console.log(result);
+});

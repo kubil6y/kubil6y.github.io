@@ -71,3 +71,20 @@ canvas {
 #captured_pieces p {
   margin-right: 10px;
 }
+
+/* TODO log button for development */
+#dev-button {
+  position: fixed;
+  z-index: 2;
+  top: 20px;
+  right: 20px;
+  background-color: orangered;
+  color: white;
+  padding: 6px 15px;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  outline: 2px white solid;
+}

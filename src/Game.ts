@@ -2,6 +2,7 @@ import { Board } from "./Board";
 import { Canvas } from "./Canvas";
 import { EventRunner } from "./events/EventRunner";
 import { InformationService } from "./InformationService";
+import { BasePiece } from "./pieces/BasePiece";
 
 export class Game {
   public board = new Board(this.canvas);
@@ -20,6 +21,27 @@ export class Game {
     this.board.listenForMoves();
   };
 
-  // public play = () => {};
-  // public generatePieces = () => {};
+  // TODO only for dev
+  public printPiecesOnBoard = () => {
+    interface IItem {
+      position: string;
+      piece: BasePiece | null;
+    }
+
+    const result: IItem[][] = [];
+
+    for (let i = 0; i < 8; i++) {
+      const arr: IItem[] = [];
+      for (let j = 0; j < 8; j++) {
+        const item: IItem = {
+          position: this.board.cells[i][j].name,
+          piece: this.board.cells[i][j].currentPiece,
+        };
+        arr.push(item);
+      }
+      result.push(arr);
+    }
+
+    console.log(result);
+  };
 }

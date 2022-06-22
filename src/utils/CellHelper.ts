@@ -92,13 +92,14 @@ export class CellHelper {
 
     // vertical Cells
     let x = i - 1;
+    let y = j + 1;
+
     while (x >= 0) {
       if (cells[x][j].currentPiece) break;
       verticalCells.push(cells[x][j]);
       x--;
     }
 
-    let y = j + 1;
     while (y <= 7) {
       if (cells[y][j].currentPiece) break;
       verticalCells.push(cells[y][j]);
@@ -107,22 +108,25 @@ export class CellHelper {
 
     // horizontal Cells
     let k = i - 1;
+    let l = j + 1;
+
     while (k >= 0) {
       if (cells[i][k]?.currentPiece) break;
       horizontalCells.push(cells[i][k]);
       k--;
     }
 
-    let l = j + 1;
     while (l <= 7) {
       if (cells[i][l].currentPiece) break;
       horizontalCells.push(cells[i][l]);
       l++;
     }
 
+    // TODO revert this
+    // return [...horizontalCells, ...verticalCells];
     return {
-      verticalCells,
       horizontalCells,
+      verticalCells,
     };
   };
 
@@ -132,7 +136,53 @@ export class CellHelper {
     i: number,
     j: number
   ) => {
-    // positive negative degrees... name them like that
+    // negative degree: \
+    // const negatives: Cell[] = [];
+
+    // positive degree: /
+    const result: Cell[] = [];
+    let x = i - 1;
+    let y = j + 1;
+
+    // going top-right
+    while (x >= 0 && y <= 7) {
+      if (cells[x][y].currentPiece) break;
+      result.push(cells[x][y]);
+      x--;
+      y++;
+    }
+
+    // going bottom-left
+    x = i + 1;
+    y = j - 1;
+    while (x <= 7 && y >= 0) {
+      if (cells[x][y].currentPiece) break;
+      result.push(cells[x][y]);
+      x++;
+      y--;
+    }
+
+    // going top-left
+    x = i - 1;
+    y = j - 1;
+    while (x >= 0 && y >= 0) {
+      if (cells[x][y].currentPiece) break;
+      result.push(cells[x][y]);
+      x--;
+      y--;
+    }
+
+    // going bottom-right
+    x = i + 1;
+    y = j + 1;
+    while (x <= 7 && y <= 7) {
+      if (cells[x][y].currentPiece) break;
+      result.push(cells[x][y]);
+      x--;
+      y--;
+    }
+
+    return result;
   };
 
   // TODO get knight movement cells
