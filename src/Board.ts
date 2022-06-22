@@ -27,12 +27,15 @@ export class Board {
   public cells: Cell[][] = [];
   public currentPlayer: ColorType = "white";
   public currentSelectedCell: Cell | null = null;
+  public attempedNextSelectedCell: Cell | null = null;
   public nextSelectedCell: Cell | null = null;
   public moves: any = [];
   public capturedPieces: BasePiece[] = [];
   public lastMovedPieceCellPosition: Cell | null = null;
   public possibleMoves: Cell[] = [];
 
+  public moveSound = new Audio("/sound/public_sound_standard_Move.mp3");
+  public captureSound = new Audio("/sound/public_sound_standard_Capture.mp3");
   public captured_pieces_by_white = document.querySelector(
     "#captured_pieces_by_white"
   )!;
@@ -42,6 +45,11 @@ export class Board {
 
   constructor(canvas: Canvas) {
     this.canvas = canvas;
+    this.captureSound.preload = "auto";
+    this.captureSound.load();
+
+    this.moveSound.preload = "auto";
+    this.moveSound.load();
   }
 
   public initCells = (): void => {
@@ -265,16 +273,20 @@ export class Board {
         cell.currentPiece?.draw();
 
         // drawing currently selected cell
-        this.currentSelectedCell?.drawStroke("#bcc536a9", 3);
+        this.currentSelectedCell?.drawStroke("#bcc5366b", 3);
 
         if (this.lastMovedPieceCellPosition) {
           this.lastMovedPieceCellPosition.drawStroke("darkgreen", 3);
         }
 
         if (this.currentSelectedCell && this.possibleMoves.length > 0) {
-          this.possibleMoves.forEach((item) =>
-            item.drawCircle(this.canvas.ctx, 6, "#bcc536a9")
-          );
+          this.possibleMoves.forEach((item) => {
+            if (item.currentPiece !== null) {
+              item.drawCircle(this.canvas.ctx, 6, "red");
+            } else {
+              item.drawCircle(this.canvas.ctx, 6, "#bcc5366b");
+            }
+          });
         }
       }
     }
@@ -379,40 +391,45 @@ export class Board {
     return cell.currentPiece;
   };
 
-  public listenForMoves = () => {
-    if (this.currentSelectedCell?.currentPiece && this.nextSelectedCell) {
-      // is the move valid?
-      if (
-        this.currentSelectedCell.currentPiece.isValidMove(
-          this.cells,
-          this.nextSelectedCell
-        )
-      ) {
-        // capturing piece if exists
-        if (this.nextSelectedCell.currentPiece) {
-          this.capturedPieces.push(this.nextSelectedCell.currentPiece);
-        }
+  public setPossibleMoves = (cells: Cell[]): void => {
+    this.possibleMoves = cells;
+  };
 
-        // reset pieces
+  public listenForMoves = () => {
+    let playCaptureSound = false;
+
+    if (this.currentSelectedCell && this.nextSelectedCell) {
+      // capturing if exists
+      if (this.nextSelectedCell.currentPiece) {
+        playCaptureSound = true;
+        this.capturedPieces.push(this.nextSelectedCell.currentPiece);
       }
 
       // setting next cell's new piece
+      this.currentSelectedCell.currentPiece!.hasMoved = true;
       this.nextSelectedCell.currentPiece =
         this.currentSelectedCell.currentPiece;
 
       // setting next cell's piece's position
-      this.nextSelectedCell.currentPiece.currentPosition =
+      this.nextSelectedCell.currentPiece!.currentPosition =
         this.nextSelectedCell.name;
 
       // setting lastMovedPieceCellPosition
       this.lastMovedPieceCellPosition = this.nextSelectedCell;
+
       // removing current cell's piece
       this.currentSelectedCell.currentPiece = null;
 
       // cleanup after move
       this.currentSelectedCell = null;
+      this.attempedNextSelectedCell = null;
       this.nextSelectedCell = null;
 
+      if (playCaptureSound) {
+        this.captureSound.play();
+      } else {
+        this.moveSound.play();
+      }
       this.currentPlayer = this.currentPlayer === "white" ? "black" : "white";
     }
   };

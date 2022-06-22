@@ -17,5 +17,9 @@ devButton.addEventListener("click", () => {
   game.printPiecesOnBoard();
 
   const target = CellHelper.IndexToName(4, 4);
-  console.log({ target, possibleMoves: game.board.possibleMoves });
+  console.log({
+    target,
+    possibleMoves: game.board.possibleMoves,
+    board: game.board,
+  });
 });

@@ -18,21 +18,32 @@ export class ClickEvents {
     if (
       cell.currentPiece &&
       this.board.currentPlayer === cell.currentPiece.color &&
+      !this.board.attempedNextSelectedCell &&
       !this.board.nextSelectedCell
     ) {
       // Selecting currentSelectedCell
       this.board.currentSelectedCell = cell;
 
-      // TODO deneme: trying to set possible moves on the board
-      this.board.possibleMoves =
+      const possibleMoves =
         this.board.currentSelectedCell.currentPiece?.getValidMoves(
           this.board.cells
         ) || [];
+
+      this.board.setPossibleMoves(possibleMoves);
     } else if (this.board.currentSelectedCell && !this.board.nextSelectedCell) {
-      // Selecting nextSelectedCell
-      this.board.nextSelectedCell = cell;
-      // TODO after selecting nextSelectedCell remove possible moves;
-      this.board.possibleMoves = [];
+      // Selecting attempedNextSelectedCell
+      this.board.attempedNextSelectedCell = cell;
+
+      if (
+        this.board.currentSelectedCell.currentPiece?.isValidMove(
+          this.board.cells,
+          cell
+        )
+      ) {
+        // Selecting nextSelectedCell
+        this.board.nextSelectedCell = cell;
+        this.board.setPossibleMoves([]);
+      }
     }
   };
 }

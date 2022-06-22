@@ -1,4 +1,5 @@
 import { Cell } from "../Cell";
+import { CellHelper } from "../utils/CellHelper";
 import { BasePiece } from "./BasePiece";
 
 export abstract class Knight extends BasePiece {
@@ -11,10 +12,16 @@ export abstract class Knight extends BasePiece {
   };
 
   public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
-    return true;
+    if (this.isPinned) return false;
+    const validMoves = this.getValidMoves(cells);
+    return validMoves.includes(nextCell);
   }
 
   public getValidMoves = (cells: Cell[][]): Cell[] => {
-    return [];
+    const { i, j } = CellHelper.NameToIndex(this.currentPosition);
+
+    const moves = CellHelper.GetLMovementCellsFromIndex(cells, i, j);
+
+    return moves.filter((cell) => cell.currentPiece?.color !== this.color);
   };
 }

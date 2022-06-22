@@ -1,5 +1,6 @@
 import { Board } from "../Board";
 import { Cell } from "../Cell";
+import { ColorType } from "../types";
 
 export class CellHelper {
   public static IndexToName(i: number, j: number): string {
@@ -91,42 +92,40 @@ export class CellHelper {
     i: number,
     j: number
   ): Cell[] => {
-    const horizontalCells: Cell[] = [];
-    const verticalCells: Cell[] = [];
+    const result: Cell[] = [];
 
-    // vertical Cells
-    let x = i - 1;
-    let y = j + 1;
+    // going right
+    let x = i + 1;
+    while (x <= 7) {
+      if (cells[x][j].currentPiece) break;
+      result.push(cells[x][j]);
+      x++;
+    }
 
+    // going left
+    x = i - 1;
     while (x >= 0) {
       if (cells[x][j].currentPiece) break;
-      verticalCells.push(cells[x][j]);
+      result.push(cells[x][j]);
       x--;
     }
 
+    // going top
+    let y = j - 1;
+    while (y >= 0) {
+      if (cells[i][y].currentPiece) break;
+      result.push(cells[i][y]);
+      y--;
+    }
+
+    y = j + 1;
     while (y <= 7) {
-      if (cells[y][j].currentPiece) break;
-      verticalCells.push(cells[y][j]);
+      if (cells[i][y].currentPiece) break;
+      result.push(cells[i][y]);
       y++;
     }
 
-    // horizontal Cells
-    let k = i - 1;
-    let l = j + 1;
-
-    while (k >= 0) {
-      if (cells[i][k]?.currentPiece) break;
-      horizontalCells.push(cells[i][k]);
-      k--;
-    }
-
-    while (l <= 7) {
-      if (cells[i][l].currentPiece) break;
-      horizontalCells.push(cells[i][l]);
-      l++;
-    }
-
-    return [...horizontalCells, ...verticalCells];
+    return result;
   };
 
   public static Get45DegreeCellsIfEmptyFromIndex = (
@@ -134,15 +133,11 @@ export class CellHelper {
     i: number,
     j: number
   ): Cell[] => {
-    // negative degree: \
-    // const negatives: Cell[] = [];
-
-    // positive degree: /
     const result: Cell[] = [];
-    let x = i - 1;
-    let y = j + 1;
 
     // going top-right
+    let x = i - 1;
+    let y = j + 1;
     while (x >= 0 && y <= 7) {
       if (cells[x][y].currentPiece) break;
       result.push(cells[x][y]);

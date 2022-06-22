@@ -8,12 +8,43 @@ export class BlackPawn extends Pawn {
 
   public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
     if (this.isPinned) return false;
-    return true;
+    const validMoves = this.getValidMoves(cells);
+    return validMoves.includes(nextCell);
   }
 
   public getValidMoves = (cells: Cell[][]): Cell[] => {
     const { i, j } = CellHelper.NameToIndex(this.currentPosition);
-    const result = CellHelper.Get45DegreeCellsIfEmptyFromIndex(cells, i, j);
+    const result: Cell[] = [];
+
+    if (!this.hasMoved) {
+      if (cells[i + 2][j].currentPiece === null) {
+        result.push(cells[i + 2][j]);
+      }
+    }
+
+    if (
+      CellHelper.IsCellValid(i + 1, j) &&
+      cells[i + 1][j].currentPiece === null
+    ) {
+      result.push(cells[i + 1][j]);
+    }
+
+    if (
+      CellHelper.IsCellValid(i + 1, j - 1) &&
+      cells[i + 1][j - 1].currentPiece !== null &&
+      cells[i + 1][j - 1].currentPiece?.color !== this.color
+    ) {
+      result.push(cells[i + 1][j - 1]);
+    }
+
+    if (
+      CellHelper.IsCellValid(i + 1, j + 1) &&
+      cells[i + 1][j + 1].currentPiece !== null &&
+      cells[i + 1][j + 1].currentPiece?.color !== this.color
+    ) {
+      result.push(cells[i + 1][j + 1]);
+    }
+
     return result;
   };
 

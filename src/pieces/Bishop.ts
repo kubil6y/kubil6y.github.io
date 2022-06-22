@@ -1,4 +1,5 @@
 import { Cell } from "../Cell";
+import { CellHelper } from "../utils/CellHelper";
 import { BasePiece } from "./BasePiece";
 
 export abstract class Bishop extends BasePiece {
@@ -10,12 +11,15 @@ export abstract class Bishop extends BasePiece {
     imgOffsetY: number;
   };
 
-  public getValidMoves = (cells: Cell[][]): Cell[] => {
-    return [];
-  };
-
   public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
     if (this.isPinned) return false;
-    return true;
+    const validMoves = this.getValidMoves(cells);
+    return validMoves.includes(nextCell);
   }
+
+  public getValidMoves = (cells: Cell[][]): Cell[] => {
+    const { i, j } = CellHelper.NameToIndex(this.currentPosition);
+    const moves = CellHelper.Get45DegreeCellsIfEmptyFromIndex(cells, i, j);
+    return moves;
+  };
 }
