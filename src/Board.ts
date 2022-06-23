@@ -58,7 +58,10 @@ export class Board {
       for (let j = 0; j < 8; j++) {
         const x = this.startX + j * this.cellSize;
         const y = this.startY + i * this.cellSize;
-        const color = (i + j) % 2 === 0 ? "white" : "tomato";
+        const color =
+          (i + j) % 2 === 0
+            ? Globals.WHITE_CELL_COLOR
+            : Globals.BLACK_CELL_COLOR;
         const name = CellHelper.IndexToName(i, j);
 
         arr.push(new Cell(name, this.canvas, x, y, this.cellSize, color));

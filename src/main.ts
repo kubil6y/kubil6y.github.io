@@ -1,6 +1,5 @@
 import { game } from "./setup";
 import { CellHelper } from "./utils/CellHelper";
-// import { CellHelper } from "./utils/CellHelper";
 
 game.init();
 game.draw();

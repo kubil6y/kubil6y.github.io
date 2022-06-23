@@ -2,8 +2,6 @@ import { BaseComponent } from "./BaseComponent";
 import { Canvas } from "./Canvas";
 import { BasePiece } from "./pieces/BasePiece";
 
-export type TCellColor = "white" | "#7c7219cc";
-
 export class Cell extends BaseComponent {
   public currentPiece: BasePiece | null = null;
   constructor(

@@ -5,13 +5,13 @@ import { King } from "../King";
 export class BlackKing extends King {
   public unicode: string = UnicodeCharacters.Black.King;
 
-  public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
-    return true;
-  }
+  // public isValidMove(cells: Cell[][], nextCell: Cell): boolean {
+  //   return true;
+  // }
 
-  public getValidMoves = (cells: Cell[][]): Cell[] => {
-    return [];
-  };
+  // public getValidMoves = (cells: Cell[][]): Cell[] => {
+  //   return [];
+  // };
 
   public getImageCoordinates(): {
     imgW: number;
