@@ -22,52 +22,62 @@ export abstract class King extends BasePiece {
     const result: Cell[] = [];
     const { i, j } = CellHelper.NameToIndex(this.currentPosition);
 
-    // FIXME holy shit make an array and loop over this shit logic
-
     // from white's perspective
-    // going down
-    if (CellHelper.IsCellValid(i - 1, j)) {
-      if (cells[i - 1][j].currentPiece === null) {
-        result.push(cells[i - 1][j]);
-      } else {
-        if (cells[i - 1][j].currentPiece?.color !== this.color) {
-          result.push(cells[i - 1][j]);
-        }
-      }
-    }
+    const table = [
+      {
+        name: "up",
+        x: i - 1,
+        y: j,
+      },
+      {
+        name: "down",
+        x: i + 1,
+        y: j,
+      },
+      {
+        name: "left",
+        x: i,
+        y: j - 1,
+      },
+      {
+        name: "right",
+        x: i,
+        y: j + 1,
+      },
 
-    // going up
-    if (CellHelper.IsCellValid(i + 1, j)) {
-      if (cells[i + 1][j].currentPiece === null) {
-        result.push(cells[i + 1][j]);
-      } else {
-        if (cells[i + 1][j].currentPiece?.color !== this.color) {
-          result.push(cells[i + 1][j]);
-        }
-      }
-    }
+      {
+        name: "top-right",
+        x: i - 1,
+        y: j + 1,
+      },
+      {
+        name: "top-left",
+        x: i - 1,
+        y: j - 1,
+      },
+      {
+        name: "bottom-right",
+        x: i + 1,
+        y: j + 1,
+      },
+      {
+        name: "bottom-left",
+        x: i + 1,
+        y: j - 1,
+      },
+    ];
 
-    // going left
-    if (CellHelper.IsCellValid(i, j - 1)) {
-      if (cells[i][j - 1].currentPiece === null) {
-        result.push(cells[i][j - 1]);
-      } else {
-        if (cells[i][j - 1].currentPiece?.color !== this.color) {
-          result.push(cells[i][j - 1]);
+    table.forEach(({ x, y }) => {
+      if (CellHelper.IsCellValid(x, y)) {
+        if (cells[x][y].currentPiece === null) {
+          result.push(cells[x][y]);
+        } else {
+          if (cells[x][y].currentPiece?.color !== this.color) {
+            result.push(cells[x][y]);
+          }
         }
       }
-    }
-
-    // going right
-    if (CellHelper.IsCellValid(i, j + 1)) {
-      if (cells[i][j + 1].currentPiece === null) {
-        result.push(cells[i][j + 1]);
-      } else {
-        if (cells[i][j + 1].currentPiece?.color !== this.color) {
-          result.push(cells[i][j + 1]);
-        }
-      }
-    }
+    });
 
     return result;
   };
