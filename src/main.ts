@@ -1,5 +1,4 @@
 import { game } from "./setup";
-import { CellHelper } from "./utils/CellHelper";
 
 game.init();
 game.draw();
@@ -11,14 +10,14 @@ function main() {
 }
 main();
 
-export const devButton = document.querySelector("#dev-button")!;
-devButton.addEventListener("click", () => {
-  game.printPiecesOnBoard();
+// export const devButton = document.querySelector("#dev-button")!;
+// devButton.addEventListener("click", () => {
+//   game.printPiecesOnBoard();
 
-  const target = CellHelper.IndexToName(4, 4);
-  console.log({
-    target,
-    possibleMoves: game.board.possibleMoves,
-    board: game.board,
-  });
-});
+//   const target = CellHelper.IndexToName(4, 4);
+//   console.log({
+//     target,
+//     possibleMoves: game.board.possibleMoves,
+//     board: game.board,
+//   });
+// });
