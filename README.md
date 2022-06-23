@@ -1,6 +1,6 @@
 # Chess Game
 
-It's 75% done. I will keep developing it when i lose my internet connection lol.
+PC only, no mobile support yet. It's 75% done. I will keep developing it when i lose my internet connection lol.
 
 Simple chess built with:
 
